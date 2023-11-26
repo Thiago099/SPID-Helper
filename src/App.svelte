@@ -3,7 +3,7 @@
   let modname = ""
   let output = ""
   let esl = false
-  let mod = true
+  let mod = false
   let error = false
 
   function clean(input)
@@ -11,7 +11,7 @@
     return input.replace(/[^a-zA-Z0-9]+/g,"")
   }
   
-  let masters = ["Skyrim.esm", "Update.esm", "Dawnguard.esm", "Dragonborn.esm", "HearthFires.esm"]
+  let masters = ["skyrim.esm", "update.esm", "dawnguard.esm", "dragonborn.esm", "hearthfires.esm",]
   $:{
     output = ""
     error = true
@@ -30,9 +30,13 @@
 
         let result = input
 
-        if(masters.includes(modname))
+        if(modname == ""||masters.includes(modname.toLocaleLowerCase()))
         {
           mod = false;
+        }
+        else
+        {
+          mod = true;
         }
 
         if(mod)
@@ -64,7 +68,6 @@
   <input id="input" type="text" bind:value={input}/>
   <label for="modName">Plugin that contains the form</label>
   <input id="modName" type="text" bind:value={modname}/>
-    <div><input id="mod" type="checkbox" bind:checked={mod}/><label for="mod">is the plugin from mod (optional)</label></div>
   <div><input id="esl" type="checkbox" bind:checked={esl}/><label for="esl">is the plugin ESL</label></div>
   <label for="result" style="color: #181;">SPID - DISTR ID</label>
   <input id="result" type="text" bind:value={output} style="{error?"color:red":""}"/>
