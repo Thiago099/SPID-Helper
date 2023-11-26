@@ -64,7 +64,7 @@
   <input id="input" type="text" bind:value={input}/>
   <label for="modName">Plugin that contains the form</label>
   <input id="modName" type="text" bind:value={modname}/>
-    <div><input id="mod" type="checkbox" bind:checked={mod}/><label for="mod">is the plugin from mod (opcional)</label></div>
+    <div><input id="mod" type="checkbox" bind:checked={mod}/><label for="mod">is the plugin from mod (optional)</label></div>
   <div><input id="esl" type="checkbox" bind:checked={esl}/><label for="esl">is the plugin ESL</label></div>
   <label for="result" style="color: #181;">SPID - DISTR ID</label>
   <input id="result" type="text" bind:value={output} style="{error?"color:red":""}"/>
