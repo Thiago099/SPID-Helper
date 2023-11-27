@@ -1,7 +1,10 @@
 <script>
   let input = ""
   let output = ""
+  let name = ""
   let error = false
+
+  let isMod = true
 
   function clean(input)
   {
@@ -15,6 +18,7 @@
     if(input != "")
     {
       let result = clean(input)
+      let modName = name.trim()
       if(result.length != 8)
       {
         output += "input must be 8 characters long"
@@ -39,6 +43,8 @@
         {
           mod = false;
         }
+        
+        isMod = mod
 
         if(mod)
         {
@@ -52,13 +58,21 @@
           }
         }
 
-        let i = 0;
-        while(result[i] == "0")
+        if(mod && modName == "")
         {
-          i++;
+          error = true;
+          output = "Mod name required for non base game files"
         }
+        else
+        {
+          let i = 0;
+          while(result[i] == "0")
+          {
+            i++;
+          }
 
-        output = "0x"+result.substring(i, result.length)
+          output = "0x"+result.substring(i, result.length) + (mod?("~"+name):"")
+        }
       }
     }
   }
@@ -66,7 +80,9 @@
 
 <main>
   <label for="input">FormID</label>
-  <input id="input" type="text" bind:value={input}/>
+  <input id="input" type="text" bind:value={input} placeholder="FE044801"/>
+  <label for="pluginName">Plugin File (only if it is not from the base game)</label>
+  <input id="pluginName" type="text" class="{isMod?"":"base-game"}" bind:value={name} placeholder="My Plugin.esl"/>
   <label for="result" style="color: #181;">SPID - DISTR ID</label>
   <input id="result" type="text" bind:value={output} style="{error?"color:red":""}"/>
 </main>
@@ -89,5 +105,16 @@ input{
   font-size: 1.5em;
   width: 400px;
   text-align: center;
+}
+input.base-game{
+  opacity: 0.2;
+}
+::placeholder {
+
+  opacity: 0.2; /* Firefox */
+}
+
+::-ms-input-placeholder { /* Edge 12 -18 */
+  opacity: 0.2;
 }
 </style>
